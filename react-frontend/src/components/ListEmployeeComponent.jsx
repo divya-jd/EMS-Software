@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
-import EmployeeService from '../services/EmployeeService'
+import AuthService from '../services/AuthService'
 import { Edit2, Trash2, Eye, UserPlus, Loader, Search, Filter } from 'lucide-react'
 
 const ListEmployeeComponent = () => {
     const navigate = useNavigate();
     const [employees, setEmployees] = useState([]);
     const [loading, setLoading] = useState(true);
+    const isAdmin = AuthService.isAdmin();
 
     useEffect(() => {
         fetchEmployees();
@@ -41,13 +42,15 @@ const ListEmployeeComponent = () => {
                     <h2 className="text-3xl font-bold text-slate-900 tracking-tight">Workforce Directory</h2>
                     <p className="text-slate-500 mt-1">Manage employee profiles and sustainability metrics.</p>
                 </div>
-                <button
-                    onClick={() => navigate('/add-employee/_add')}
-                    className="flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-5 py-2.5 rounded-lg shadow-lg shadow-primary-500/20 transition-all font-medium"
-                >
-                    <UserPlus size={18} />
-                    Add Employee
-                </button>
+                {isAdmin && (
+                    <button
+                        onClick={() => navigate('/add-employee/_add')}
+                        className="flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-5 py-2.5 rounded-lg shadow-lg shadow-primary-500/20 transition-all font-medium"
+                    >
+                        <UserPlus size={18} />
+                        Add Employee
+                    </button>
+                )}
             </div>
 
             {/* Filter/Search Bar */}
@@ -103,24 +106,28 @@ const ListEmployeeComponent = () => {
                                             </td>
                                             <td className="p-5">
                                                 <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${employee.workMode === 'REMOTE' ? 'bg-indigo-50 text-indigo-700 border-indigo-200' :
-                                                        employee.workMode === 'HYBRID' ? 'bg-purple-50 text-purple-700 border-purple-200' :
-                                                            'bg-emerald-50 text-emerald-700 border-emerald-200'
+                                                    employee.workMode === 'HYBRID' ? 'bg-purple-50 text-purple-700 border-purple-200' :
+                                                        'bg-emerald-50 text-emerald-700 border-emerald-200'
                                                     }`}>
                                                     <span className={`w-1.5 h-1.5 rounded-full ${employee.workMode === 'REMOTE' ? 'bg-indigo-500' :
-                                                            employee.workMode === 'HYBRID' ? 'bg-purple-500' :
-                                                                'bg-emerald-500'
+                                                        employee.workMode === 'HYBRID' ? 'bg-purple-500' :
+                                                            'bg-emerald-500'
                                                         }`}></span>
                                                     {employee.workMode || 'ONSITE'}
                                                 </span>
                                             </td>
                                             <td className="p-5 text-center">
                                                 <div className="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                    <button onClick={() => navigate(`/add-employee/${employee.id}`)} className="p-2 text-slate-400 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors" title="Edit">
-                                                        <Edit2 size={16} />
-                                                    </button>
-                                                    <button onClick={() => deleteEmployee(employee.id)} className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete">
-                                                        <Trash2 size={16} />
-                                                    </button>
+                                                    {isAdmin && (
+                                                        <>
+                                                            <button onClick={() => navigate(`/add-employee/${employee.id}`)} className="p-2 text-slate-400 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors" title="Edit">
+                                                                <Edit2 size={16} />
+                                                            </button>
+                                                            <button onClick={() => deleteEmployee(employee.id)} className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete">
+                                                                <Trash2 size={16} />
+                                                            </button>
+                                                        </>
+                                                    )}
                                                     <button onClick={() => navigate(`/view-employee/${employee.id}`)} className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors" title="View">
                                                         <Eye size={16} />
                                                     </button>

@@ -1,8 +1,8 @@
-package net.javaguides.springboot.controller;
+package com.jd.controller;
 
-import net.javaguides.springboot.model.Employee;
-import net.javaguides.springboot.service.CarbonCalculationService;
-import net.javaguides.springboot.service.EmployeeService;
+import com.jd.model.Employee;
+import com.jd.service.CarbonCalculationService;
+import com.jd.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

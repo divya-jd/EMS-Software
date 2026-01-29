@@ -1,6 +1,6 @@
-package net.javaguides.springboot.service;
+package com.jd.service;
 
-import net.javaguides.springboot.model.Employee;
+import com.jd.model.Employee;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -7,6 +7,8 @@ import FooterComponent from './components/FooterComponent';
 import CreateEmployeeComponent from './components/CreateEmployeeComponent';
 import ViewEmployeeComponent from './components/ViewEmployeeComponent';
 import CarbonDashboardComponent from './components/CarbonDashboardComponent';
+import LoginComponent from './components/LoginComponent';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -15,11 +17,22 @@ function App() {
         <HeaderComponent />
         <main className="flex-grow">
           <Routes>
-            <Route path="/" element={<Navigate to="/employees" replace />} />
-            <Route path="/employees" element={<ListEmployeeComponent />} />
-            <Route path="/add-employee/:id" element={<CreateEmployeeComponent />} />
-            <Route path="/view-employee/:id" element={<ViewEmployeeComponent />} />
-            <Route path="/carbon-dashboard" element={<CarbonDashboardComponent />} />
+            {/* Public Route */}
+            <Route path="/login" element={<LoginComponent />} />
+
+            {/* Protected Routes */}
+            <Route element={<ProtectedRoute />}>
+              <Route path="/" element={<Navigate to="/carbon-dashboard" replace />} />
+              <Route path="/employees" element={<ListEmployeeComponent />} />
+              <Route path="/view-employee/:id" element={<ViewEmployeeComponent />} />
+              <Route path="/carbon-dashboard" element={<CarbonDashboardComponent />} />
+            </Route>
+
+            {/* Admin Only Routes */}
+            <Route element={<ProtectedRoute role="ROLE_ADMIN" />}>
+              <Route path="/add-employee/:id" element={<CreateEmployeeComponent />} />
+            </Route>
+
           </Routes>
         </main>
         <FooterComponent />
