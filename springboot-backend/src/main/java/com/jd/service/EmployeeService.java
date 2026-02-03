@@ -1,11 +1,11 @@
-package net.javaguides.springboot.service;
+package com.jd.service;
 
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 
-import net.javaguides.springboot.model.Employee;
+import com.jd.model.Employee;
 
 public interface EmployeeService {
     List<Employee> getAllEmployees();
