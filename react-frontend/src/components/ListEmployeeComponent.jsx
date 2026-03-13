@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import AuthService from '../services/AuthService'
+import EmployeeService from '../services/EmployeeService'
 import { Edit2, Trash2, Eye, UserPlus, Loader, Search, Filter } from 'lucide-react'
 
 const ListEmployeeComponent = () => {

@@ -50,6 +50,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) ->
                 // authorize.anyRequest().authenticated()
                 authorize.requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers("/error").permitAll()
                         .requestMatchers("/api/v1/carbon/dashboard").hasAnyRole("ADMIN", "AUDITOR")
                         .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/employees/**")
                         .hasAnyRole("ADMIN", "AUDITOR")
@@ -58,6 +60,7 @@ public class SecurityConfig {
 
                 ).exceptionHandling(exception -> exception
                         .authenticationEntryPoint(authenticationEntryPoint))
+                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()))
                 .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
