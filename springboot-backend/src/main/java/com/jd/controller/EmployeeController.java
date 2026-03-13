@@ -1,4 +1,4 @@
-package net.javaguides.springboot.controller;
+package com.jd.controller;
 
 import java.util.List;
 import java.util.Map;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import net.javaguides.springboot.model.Employee;
-import net.javaguides.springboot.service.EmployeeService;
+import com.jd.model.Employee;
+import com.jd.service.EmployeeService;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController

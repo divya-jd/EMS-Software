@@ -1,4 +1,4 @@
-package net.javaguides.springboot.service.impl;
+package com.jd.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import net.javaguides.springboot.exception.ResourceNotFoundException;
-import net.javaguides.springboot.model.Employee;
-import net.javaguides.springboot.repository.EmployeeRepository;
-import net.javaguides.springboot.service.EmployeeService;
+import com.jd.exception.ResourceNotFoundException;
+import com.jd.model.Employee;
+import com.jd.repository.EmployeeRepository;
+import com.jd.service.EmployeeService;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
